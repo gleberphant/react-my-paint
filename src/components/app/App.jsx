@@ -1,9 +1,8 @@
-import reactLogo from './assets/react.svg'
-import Menu from './Menu'
-import Canvas from './Canvas'
-import Footer from './Foot'
+import Menu from '../menu/Menu'
+import Canvas from '../canvas/Canvas'
+import Footer from '../foot/Foot'
 import './App.css'
-import { useState } from 'react'
+
 
 function App() {
   return (

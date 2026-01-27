@@ -1,17 +1,17 @@
 import { useRef, useState } from "react"
-import PaletaCores from "./PaletaCores"
+import PaletaCores from "../paletacores/PaletaCores"
 
 
 function Canvas() {
 
   const [color, setColor] = useState('black')
-  const [drawMode, setDrawMode] = useState('point')
   const [pointPos, setPointPos] = useState({ x: 0.0, y: 0.0 })
+
+  const [drawMode, setDrawMode] = useState('point')
   const mousePress = useRef(false)
-  //const [mousePress, setMousePress] = useState(false)
   const myCanvasRef = useRef(null)
 
-  
+
   // método - Clicas drawMode on
   const canvasMouseDown = function () {
     mousePress.current = true
@@ -89,17 +89,17 @@ function Canvas() {
 
 
       <br></br>
-      <PaletaCores />
+      <PaletaCores callBackSetColor={setColor} />
 
 
       <br></br>
-      <canvas ref={myCanvasRef} style={{ border: '1px solid white' }} width='800' height='600'
+      <canvas ref={myCanvasRef} style={{ border: '1px solid white', backgroundColor: 'white' }} width='800' height='600'
         onMouseDown={canvasMouseDown}
         onMouseMove={(e) => { canvasMouseMove(e) }}
         onMouseUp={canvasMouseUp}
       ></canvas>
 
-      <p> X: {pointPos.x.toFixed(0)}, Y: {pointPos.y.toFixed(0)} Mouse Press :{String(mousePress.current)} DrawMode: {drawMode} Cor :{color}</p>
+      <p> X: {pointPos.x.toFixed(0)}, Y: {pointPos.y.toFixed(0)} DrawMode: {drawMode} Cor :{color}</p>
     </>
   )
 }
