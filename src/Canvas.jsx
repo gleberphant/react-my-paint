@@ -1,29 +1,28 @@
 import { useRef, useState } from "react"
+import PaletaCores from "./PaletaCores"
 
-// //let mousePress = false
-
-// const setMousePress = function (value){
-//     mousePress=value
-// }
 
 function Canvas() {
 
   const [color, setColor] = useState('black')
   const [drawMode, setDrawMode] = useState('point')
   const [pointPos, setPointPos] = useState({ x: 0.0, y: 0.0 })
-  const [mousePress, setMousePress] = useState(false)
+  const mousePress = useRef(false)
+  //const [mousePress, setMousePress] = useState(false)
   const myCanvasRef = useRef(null)
 
-
+  
   // método - Clicas drawMode on
   const canvasMouseDown = function () {
-    setMousePress(true)
+    mousePress.current = true
+    //setMousePress(true)
     draw()
   }
 
   // método - drawMode off
   const canvasMouseUp = function () {
-    setMousePress(false)
+    mousePress.current = false
+    //setMousePress(false)
   }
 
   const canvasMouseMove = function (e) {
@@ -37,7 +36,7 @@ function Canvas() {
     })
 
     //se mouse pressionado então desenha
-    if (mousePress) { draw() }
+    if (mousePress.current) { draw() }
   }
   // método draw
   const draw = function () {
@@ -47,7 +46,6 @@ function Canvas() {
 
     // preenche tela
     if (drawMode == 'fill') {
-      //context.fillRect(0, 0, myCanvas.width, myCanvas.height)
       myCanvas.style.backgroundColor = color
       return
     }
@@ -57,10 +55,7 @@ function Canvas() {
       return
     }
   }
-  // mudar cor
-  const setDrawColor = function (drawColor) {
-    setColor(drawColor)
-  }
+
 
   // MODO preencher
   const fillModeOn = function () {
@@ -82,9 +77,6 @@ function Canvas() {
     context.clearRect(0, 0, myCanvasRef.current.width, myCanvasRef.current.height)
 
   }
-  const paleta = ['red', 'orange', 'yellow', 'olive', 'green', 'lime', 'purple', 'fuchsia', 'blue', 'aqua', 'navy', 'teal', 'white', 'black', 'silver', 'maroon']
-
-
   // render
   return (
     <>
@@ -95,9 +87,10 @@ function Canvas() {
 
       <button onClick={fillModeOn} > PREENCHER  </button>
 
-      {
-        paleta.map(cor => (<button key={cor} style={{ backgroundColor: cor }} onClick={() => setDrawColor(cor)} > &nbsp; </button>))
-      }
+
+      <br></br>
+      <PaletaCores />
+
 
       <br></br>
       <canvas ref={myCanvasRef} style={{ border: '1px solid white' }} width='800' height='600'
@@ -106,7 +99,7 @@ function Canvas() {
         onMouseUp={canvasMouseUp}
       ></canvas>
 
-      <p> X: {pointPos.x.toFixed(0)}, Y: {pointPos.y.toFixed(0)} Mouse Press :{String(mousePress)} DrawMode: {drawMode} Cor :{color}</p>
+      <p> X: {pointPos.x.toFixed(0)}, Y: {pointPos.y.toFixed(0)} Mouse Press :{String(mousePress.current)} DrawMode: {drawMode} Cor :{color}</p>
     </>
   )
 }
