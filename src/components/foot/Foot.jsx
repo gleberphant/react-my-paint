@@ -2,7 +2,7 @@
 function Foot() {
   return (
     <>
-      <div> Rodapé </div>
+      <div> Desenvolvimento por HANDERSON GLEBER DE LIMA  CAVALCANTI </div>
     </>
   )
 }
